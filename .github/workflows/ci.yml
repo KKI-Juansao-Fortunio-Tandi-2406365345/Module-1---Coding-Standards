@@ -7,18 +7,18 @@ on:
 jobs:
   test:
     name: Run tests
-    [cite_start]runs-on: ubuntu-22.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Check out the Git repository
-        [cite_start]uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Set up Java toolchain
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: "21"
-          [cite_start]cache: "gradle"
+          cache: "gradle"
 
       - name: Run unit tests
-        [cite_start]run: ./gradlew test
+        run: ./gradlew test
