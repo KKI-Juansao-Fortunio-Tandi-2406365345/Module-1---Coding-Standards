@@ -40,3 +40,15 @@ To make the code cleaner, I would:
 1.  **Create a Base Class:** Define a `BaseFunctionalTest` class that contains the common setup logic, variables (URL, port), and `setupTest` method.
 2.  **Inheritance:** Have `CreateProductFunctionalTest` and the new `ProductListCountFunctionalTest` extend this base class.
 3.  **Utility Methods:** Move common actions (like logging in or navigating to the product list) into the base class or a helper "Page Object" class to keep the test methods focused purely on assertions.
+
+## Module 2 Reflection
+
+### 1. Code Quality Issues Fixed
+During the exercise, I addressed several code quality and security issues detected by the scanning tools:
+
+* **Token-Permissions (High Severity)**: The OSSF Scorecard flagged that the `GITHUB_TOKEN` had excessive write permissions. I fixed this by adding an explicit permissions block to my workflow files (setting `contents: read`), adhering to the Principle of Least Privilege.
+* **Java Version Mismatch**: My initial deployment failed because the environment defaulted to Java 25 while my toolchain required Java 21. I fixed this by adding a `system.properties` file to enforce the correct runtime version.
+* **Unused/Dead Code**: I used the **PMD** scan results to identify and remove unused imports and variables in my `ProductController` and `ProductServiceImpl` classes, which improved the overall maintainability of the codebase.
+
+### 2. CI/CD Workflow Assessment
+I believe the current implementation fully meets the definition of Continuous Integration and Continuous Deployment. **Continuous Integration** is achieved through GitHub Actions that automatically run my unit test suite and static analysis (PMD/Scorecard) on every push to ensure code integrity. **Continuous Deployment** is implemented via the Heroku integration, which automatically builds and pushes the stable `master` branch to a live production environment whenever changes are merged. This automated pipeline reduces manual errors and ensures that the latest verified version of the software is always available to users at the deployment URL: [https://jft-eshop-module2-7622bd16ec40.herokuapp.com/](https://jft-eshop-module2-7622bd16ec40.herokuapp.com/).
