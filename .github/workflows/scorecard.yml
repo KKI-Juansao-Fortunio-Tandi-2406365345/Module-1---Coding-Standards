@@ -12,7 +12,7 @@ on:
   schedule:
     - cron: '32 16 * * 6'
   push:
-    branches: [ "master" ]
+    branches: [ "master", "module-2-exercise" ]
 
 # Declare default permissions as read only.
 permissions: read-all

@@ -119,4 +119,19 @@ class ProductRepositoryTest {
         Iterator<Product> productIterator = productRepository.findAll();
         assertFalse(productIterator.hasNext());
     }
+
+    @Test
+    void testUpdateNonExistentProduct() {
+        Product product = new Product();
+        product.setProductId("non-existent");
+
+        Product result = productRepository.update(product);
+        assertNull(result); // Assuming your repo returns null if not found
+    }
+
+    @Test
+    void testDeleteNonExistentProduct() {
+        // This ensures no exception is thrown and coverage hits the 'else' or 'not found' branch
+        assertDoesNotThrow(() -> productRepository.delete("non-existent"));
+    }
 }
