@@ -52,3 +52,21 @@ During the exercise, I addressed several code quality and security issues detect
 
 ### 2. CI/CD Workflow Assessment
 I believe the current implementation fully meets the definition of Continuous Integration and Continuous Deployment. **Continuous Integration** is achieved through GitHub Actions that automatically run my unit test suite and static analysis (PMD/Scorecard) on every push to ensure code integrity. **Continuous Deployment** is implemented via the Heroku integration, which automatically builds and pushes the stable `master` branch to a live production environment whenever changes are merged. This automated pipeline reduces manual errors and ensures that the latest verified version of the software is always available to users at the deployment URL: [https://jft-eshop-module2-7622bd16ec40.herokuapp.com/](https://jft-eshop-module2-7622bd16ec40.herokuapp.com/).
+
+## Module 3 Reflection
+
+### 1) Principles Applied
+I applied three SOLID principles to the project:
+* **Single Responsibility Principle (SRP)**: I moved `CarController` into its own file separate from `ProductController`. [cite_start]This ensures that each controller is responsible for only one domain (Cars or Products)[cite: 2100].
+* **Liskov Substitution Principle (LSP)**: I removed the inheritance where `CarController` extended `ProductController`. [cite_start]Since `CarController` is not a specialized version of `ProductController`, removing this forced relationship ensures that the system remains robust and predictable[cite: 2107].
+* **Dependency Inversion Principle (DIP)**: In `CarController`, I changed the dependency from the concrete `CarServiceImpl` to the `CarService` interface. [cite_start]This allows the high-level controller to depend on abstractions rather than low-level implementation details[cite: 2111].
+
+### 2) Advantages of Applying SOLID
+* **Better Maintainability**: By applying SRP, when I need to change how Cars are handled, I only need to look at `CarController.java` without risking breaking Product logic.
+* **Easier Testing**: DIP allows me to swap the real `CarService` with a "mock" or "test" version easily because the controller only cares about the interface contract.
+* **Flexibility**: Removing the forced inheritance (LSP) allows the two controllers to evolve independently without being tied to a parent class that might change unexpectedly.
+
+### 3) Disadvantages of Not Applying SOLID
+* **Rigid Code**: Without DIP, if I wanted to change my data storage from a list to a database, I would have to change code in multiple layers (Controller and Service) because they are tightly coupled to concrete classes.
+* **Higher Risk of Bugs**: Keeping everything in one file (SRP violation) makes it easy to accidentally delete or modify code for one feature while working on another.
+* **Fragile Inheritance**: If I kept the LSP violation, a simple change in `ProductController` (like changing a constructor or a shared mapping) could break the `CarController` functionality without warning.
