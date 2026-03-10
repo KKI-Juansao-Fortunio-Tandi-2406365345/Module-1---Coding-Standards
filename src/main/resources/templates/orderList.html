@@ -17,6 +17,13 @@
     <tr th:each="order : ${orders}">
         <td th:text="${order.id}"></td>
         <td th:text="${order.status}"></td>
+        <td>
+            <a th:if="${order.status == 'WAITING_PAYMENT'}"
+               th:href="@{/payment/addVoucher(orderId=${order.id})}">Pay Voucher</a>
+            |
+            <a th:if="${order.status == 'WAITING_PAYMENT'}"
+               th:href="@{/payment/addCod(orderId=${order.id})}">Pay CoD</a>
+        </td>
     </tr>
     </tbody>
 </table>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h2>Pay with Voucher</h2>
+<form th:action="@{/payment/add}" method="post">
+    <input type="hidden" name="orderId" th:value="${orderId}" />
+    <input type="hidden" name="method" value="VOUCHER_CODE" />
+    <input type="text" name="voucherCode" placeholder="ESHOPXXXXXXXXXXXX" />
+    <button type="submit">Pay</button>
+</form>
+</body>
+</html>
