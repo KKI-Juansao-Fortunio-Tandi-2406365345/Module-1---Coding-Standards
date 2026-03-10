@@ -17,6 +17,8 @@ public class Payment {
 
         if (method.equals("VOUCHER_CODE")) {
             this.status = validateVoucherCode(paymentData.get("voucherCode")) ? "SUCCESS" : "REJECTED";
+        } else if (method.equals("CASH_ON_DELIVERY")) {
+            this.status = validateCashOnDelivery(paymentData) ? "SUCCESS" : "REJECTED";
         }
     }
 
@@ -32,5 +34,13 @@ public class Payment {
             }
         }
         return digitCount == 8;
+    }
+
+    private boolean validateCashOnDelivery(Map<String, String> paymentData) {
+        String address = paymentData.get("address");
+        String deliveryFee = paymentData.get("deliveryFee");
+
+        return address != null && !address.isEmpty() &&
+                deliveryFee != null && !deliveryFee.isEmpty();
     }
 }
