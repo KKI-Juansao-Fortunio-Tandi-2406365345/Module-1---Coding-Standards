@@ -70,3 +70,27 @@ I applied three SOLID principles to the project:
 * **Rigid Code**: Without DIP, if I wanted to change my data storage from a list to a database, I would have to change code in multiple layers (Controller and Service) because they are tightly coupled to concrete classes.
 * **Higher Risk of Bugs**: Keeping everything in one file (SRP violation) makes it easy to accidentally delete or modify code for one feature while working on another.
 * **Fragile Inheritance**: If I kept the LSP violation, a simple change in `ProductController` (like changing a constructor or a shared mapping) could break the `CarController` functionality without warning.
+
+## Module 4 Reflection
+
+### Reflection 1: TDD and Testing Objectives (Percival 2017)
+
+After going through the TDD flow for the Order and Payment features, I definitely found it useful. Thinking about the questions proposed by Percival (2017) regarding testing objectives, here’s what I’ve realized:
+
+* **Correctness**: The TDD flow acted like a safety net. By defining the "unhappy paths" (like invalid voucher codes or empty product lists) before writing any logic, I was forced to handle those cases immediately. It gave me 100% certainty that the "what if" scenarios were covered.
+* **Maintainability**: This was the biggest win for me. When I refactored the hardcoded strings into Enums, the tests were there to tell me if I broke any mappings. Without TDD, I probably would have been much more hesitant to clean up the code.
+* **Productive Workflow**: While it takes a second to get used to writing tests first, it actually saved me time. I didn't have to guess why a feature wasn't working; the failing test told me exactly which assertion was falling short.
+
+In the future, I might try to break down my test cases into even smaller units during the RED phase to make the implementation steps even smoother, but overall, this workflow is something I'll keep using.
+
+### Reflection 2: Unit Testing and F.I.R.S.T. Principles
+
+I believe the unit tests I created during the tutorial and exercise successfully followed the **F.I.R.S.T.** principles:
+
+* **Fast**: These tests are purely unit-based. They run in milliseconds because they don't depend on the full Spring context or a real database.
+* **Independent**: Each test is isolated. For the Service layer, I used Mockito to mock the repositories, ensuring that a bug in the repository wouldn't cause a false failure in the service tests.
+* **Repeatable**: Since we used in-memory storage and mocks, the tests produce the same result every single time, regardless of the environment.
+* **Self-Validating**: Every test has clear `assertEquals` or `assertThrows` statements. I don't need to manually check logs; if the test passes green, I know the logic is correct.
+* **Timely**: Because we used TDD, the tests were written *before* the code (during the RED phase). This ensured the code was built specifically to be testable from the very beginning.
+
+To keep improving, I’ll focus on ensuring that my test names stay descriptive so that if a test fails in a CI/CD pipeline months from now, the person looking at it (who might be me!) knows exactly what went wrong without digging through the code.
