@@ -2,9 +2,14 @@ package id.ac.ui.cs.advprog.eshop.model;
 
 import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.List;
 
 @Getter
+@Setter
+@NoArgsConstructor // Added for Spring's form binding
 public class Order {
     String id;
     List<Product> products;
@@ -17,7 +22,8 @@ public class Order {
     }
 
     public Order(String id, List<Product> products, Long orderTime, String author, String status) {
-        if (products.isEmpty()) {
+        // Null-safe check: ensures products is not null AND not empty
+        if (products == null || products.isEmpty()) {
             throw new IllegalArgumentException();
         } else {
             this.id = id;
