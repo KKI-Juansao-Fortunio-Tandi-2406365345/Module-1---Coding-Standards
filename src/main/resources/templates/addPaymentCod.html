@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h2>Pay with Cash on Delivery</h2>
+<form th:action="@{/payment/add}" method="post">
+    <input type="hidden" name="orderId" th:value="${orderId}" />
+    <input type="hidden" name="method" value="CASH_ON_DELIVERY" />
+    <input type="text" name="address" placeholder="Address" />
+    <input type="text" name="deliveryFee" placeholder="Delivery Fee" />
+    <button type="submit">Pay</button>
+</form>
+</body>
+</html>
