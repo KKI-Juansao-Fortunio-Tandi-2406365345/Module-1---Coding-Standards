@@ -67,4 +67,11 @@ class PaymentTest {
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "CASH_ON_DELIVERY", paymentData);
         assertEquals("REJECTED", payment.getStatus());
     }
+
+    @Test
+    void testCreatePaymentInvalidMethod() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Payment("13652556-012a-4c07-b546-54eb1396d79b", "CRYPTO", paymentData);
+        });
+    }
 }
