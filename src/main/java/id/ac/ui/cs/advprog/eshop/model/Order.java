@@ -1,8 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
-import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -11,14 +10,30 @@ public class Order {
     List<Product> products;
     Long orderTime;
     String author;
-    @Setter
     String status;
 
     public Order(String id, List<Product> products, Long orderTime, String author) {
-        // Leave empty for now
+        this(id, products, orderTime, author, "WAITING_PAYMENT");
     }
 
     public Order(String id, List<Product> products, Long orderTime, String author, String status) {
-        // Leave empty for now
+        if (products.isEmpty()) {
+            throw new IllegalArgumentException();
+        } else {
+            this.id = id;
+            this.products = products;
+            this.orderTime = orderTime;
+            this.author = author;
+            this.setStatus(status);
+        }
+    }
+
+    public void setStatus(String status) {
+        String[] statusList = {"WAITING_PAYMENT", "SUCCESS", "CANCELLED", "FAILED"};
+        if (Arrays.asList(statusList).contains(status)) {
+            this.status = status;
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 }
