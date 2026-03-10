@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Repository for managing Order data in memory.
+ */
 @Repository
 public class OrderRepository {
     private final Map<String, Order> orderData = new HashMap<>();
