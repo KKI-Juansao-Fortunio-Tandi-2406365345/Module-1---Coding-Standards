@@ -14,6 +14,23 @@ public class Payment {
         this.id = id;
         this.method = method;
         this.paymentData = paymentData;
-        // Skeleton logic - leave status empty for now
+
+        if (method.equals("VOUCHER_CODE")) {
+            this.status = validateVoucherCode(paymentData.get("voucherCode")) ? "SUCCESS" : "REJECTED";
+        }
+    }
+
+    private boolean validateVoucherCode(String voucherCode) {
+        if (voucherCode == null || voucherCode.length() != 16 || !voucherCode.startsWith("ESHOP")) {
+            return false;
+        }
+
+        int digitCount = 0;
+        for (char c : voucherCode.toCharArray()) {
+            if (Character.isDigit(c)) {
+                digitCount++;
+            }
+        }
+        return digitCount == 8;
     }
 }
