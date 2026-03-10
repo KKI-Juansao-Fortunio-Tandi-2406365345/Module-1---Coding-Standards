@@ -4,6 +4,8 @@ import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.repository.PaymentRepository;
+import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,8 +46,8 @@ class PaymentServiceTest {
         Payment result = paymentService.addPayment(payment);
 
         verify(paymentRepository, times(1)).save(payment);
-        verify(orderService, times(1)).updateStatus(payment.getId(), "SUCCESS");
-        assertEquals("SUCCESS", result.getStatus());
+        verify(orderService, times(1)).updateStatus(payment.getId(), OrderStatus.SUCCESS.getValue());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), result.getStatus());
     }
 
     @Test
@@ -59,7 +61,7 @@ class PaymentServiceTest {
         Payment result = paymentService.addPayment(payment);
 
         verify(paymentRepository, times(1)).save(payment);
-        verify(orderService, times(1)).updateStatus(payment.getId(), "FAILED");
-        assertEquals("REJECTED", result.getStatus());
+        verify(orderService, times(1)).updateStatus(payment.getId(), OrderStatus.FAILED.getValue());
+        assertEquals(PaymentStatus.REJECTED.getValue(), result.getStatus());
     }
 }

@@ -3,13 +3,17 @@ package id.ac.ui.cs.advprog.eshop.model;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import lombok.Getter;
+import lombok.Setter;
 import java.util.Map;
 
 @Getter
 public class Payment {
     String id;
     String method;
+
+    @Setter
     String status;
+
     Map<String, String> paymentData;
 
     public Payment(String id, String method, Map<String, String> paymentData) {
