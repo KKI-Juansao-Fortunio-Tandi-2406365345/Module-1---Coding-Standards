@@ -2,14 +2,12 @@ package id.ac.ui.cs.advprog.eshop.service;
 
 import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
-import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -29,7 +27,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public Payment setStatus(Payment payment, String status) {
         if (!PaymentStatus.contains(status)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid payment status: " + status);
         }
         payment.setStatus(status);
         Payment savedPayment = paymentRepository.save(payment);
@@ -50,9 +48,6 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public List<Payment> getAllPayments() {
-        // Since we didn't implement a specific list method in the repo yet,
-        // this can be implemented if you add a findAll() to PaymentRepository later.
-        // For now, let's keep it simple.
-        return null;
+        return null; // To be implemented if list functionality is required
     }
 }

@@ -25,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
             order.setStatus(status);
             return orderRepository.save(order);
         } else {
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("Order not found with ID: " + orderId);
         }
     }
 
