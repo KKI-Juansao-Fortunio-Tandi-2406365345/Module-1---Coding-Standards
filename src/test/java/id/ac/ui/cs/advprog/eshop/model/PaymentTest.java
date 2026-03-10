@@ -43,4 +43,28 @@ class PaymentTest {
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "VOUCHER_CODE", paymentData);
         assertEquals("REJECTED", payment.getStatus());
     }
+
+    @Test
+    void testCreatePaymentCodSuccess() {
+        paymentData.put("address", "Jalan Liburan No. 5");
+        paymentData.put("deliveryFee", "10000");
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "CASH_ON_DELIVERY", paymentData);
+        assertEquals("SUCCESS", payment.getStatus());
+    }
+
+    @Test
+    void testCreatePaymentCodRejectedEmptyAddress() {
+        paymentData.put("address", "");
+        paymentData.put("deliveryFee", "10000");
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "CASH_ON_DELIVERY", paymentData);
+        assertEquals("REJECTED", payment.getStatus());
+    }
+
+    @Test
+    void testCreatePaymentCodRejectedEmptyFee() {
+        paymentData.put("address", "Jalan Liburan No. 5");
+        paymentData.put("deliveryFee", "");
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "CASH_ON_DELIVERY", paymentData);
+        assertEquals("REJECTED", payment.getStatus());
+    }
 }
